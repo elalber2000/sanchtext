@@ -29,6 +29,7 @@ while True:
   import tweepy
   import os
   from os import environ
+  import time
 
   # Global variables setup
   LENGTH = 20
