@@ -21,48 +21,45 @@ def randomSentence(prob_matrix, word_dict):
   return res
 
 
-while True:
-  import random as rd
-  import numpy as np
-  import csv
-  import json
-  import tweepy
-  import os
-  from os import environ
-  import time
+import random as rd
+import numpy as np
+import csv
+import json
+import tweepy
+from os import environ
+import time
+import keys
 
-  # Global variables setup
-  LENGTH = 20
-  CONSUMER_KEY = environ['CONSUMER_KEY']
-  CONSUMER_SECRET = environ['CONSUMER_SECRET']
-  ACCESS_KEY = environ['ACCESS_KEY']
-  ACCESS_SECRET = environ['ACCESS_SECRET']
+# Global variables setup
+k = keys.get_keys()
+LENGTH = 20
+CONSUMER_KEY = k['CONSUMER_KEY']
+CONSUMER_SECRET = k['CONSUMER_SECRET']
+ACCESS_KEY = k['ACCESS_KEY']
+ACCESS_SECRET = k['ACCESS_SECRET']
 
-  # Api setup
-  auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-  auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+# Api setup
+auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
-  api = tweepy.API(auth)
+api = tweepy.API(auth)
 
-  # We open the probability matrix (csv)
-  with open(r'C:\Users\ASUS\Desktop\Sanchez\Programas\Sanchtext\prob_matrix.csv', 'r') as fd:
-    csv_reader = csv.reader(fd)
-    prob_matrix = list(csv_reader)
+# We open the probability matrix (csv)
+with open(r'C:\Users\ASUS\Desktop\Sanchez\Programas\Sanchtext\prob_matrix.csv', 'r') as fd:
+  csv_reader = csv.reader(fd)
+  prob_matrix = list(csv_reader)
 
-  # We open the word dictionary (json)
-  with open(r'C:\Users\ASUS\Desktop\Sanchez\Programas\Sanchtext\word_dict.json') as json_file:
-      word_dict = json.load(json_file)
+# We open the word dictionary (json)
+with open(r'C:\Users\ASUS\Desktop\Sanchez\Programas\Sanchtext\word_dict.json') as json_file:
+    word_dict = json.load(json_file)
 
-  message = f'''
-  "{randomSentence(prob_matrix, word_dict)}"
+message = f'''
+"{randomSentence(prob_matrix, word_dict)}"
 
-  Mensaje aleatorio generado automáticamente.
-  Para leer más cosas como esta: [https://elalber2000.github.io/lacaverna/]
-  '''
+Mensaje aleatorio generado automáticamente.
+Para leer más cosas como esta: [https://elalber2000.github.io/lacaverna/]
+'''
 
 
-  # We execute the function
-  api.update_status(message)
-
-  # Sleep
-  time.sleep(86400)
+# We execute the function
+api.update_status(message)
